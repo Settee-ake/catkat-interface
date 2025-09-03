@@ -94,7 +94,7 @@ const Hero = () => {
           </div>
 
           <div className="relative max-w-2xl mx-auto">
-            <div className="relative z-1">
+            <div className="relative z-1 rounded-2xl overflow-hidden shadow-[-12px_12px_1px_2px_rgba(255,255,255,1)]">
               <img 
                 src="/heroimg.avif"
                 alt="International shipping and logistics by CatKat"
