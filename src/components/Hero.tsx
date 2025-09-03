@@ -47,7 +47,7 @@ const Hero = () => {
           </div>
 
           <div className="relative">
-            <div className="relative z-10">
+            <div className="relative z-1">
               <img 
                 src="https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=800"
                 alt="International shipping and logistics"
@@ -55,7 +55,7 @@ const Hero = () => {
               />
             </div>
             {/* Floating cards */}
-            <div className="z-999 absolute -top-6 -left-6 bg-white text-gray-800 px-4 py-3 rounded-lg shadow-xl">
+            <div className="z-2 absolute -top-6 -left-6 bg-white text-gray-800 px-4 py-3 rounded-lg shadow-xl">
               <div className="text-sm text-gray-600">Containers Shipped</div>
               <div className="text-2xl font-bold text-blue-600">2,500+</div>
             </div>
