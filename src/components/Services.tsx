@@ -1,38 +1,16 @@
-import React from 'react';
 import { Truck, Shield, Clock, DollarSign, FileText, HeadphonesIcon } from 'lucide-react';
+import { useI18n } from '../i18n/index';
 
 const Services = () => {
+  const { t, get } = useI18n();
+  const items = get('services.items') as Array<{ title: string; description: string }>;
   const services = [
-    {
-      icon: <Truck className="text-yellow-500" size={48} />,
-      title: "Import & Logistics",
-      description: "Complete import management from China with full logistics coordination, customs clearance, and delivery to your location in Thailand."
-    },
-    {
-      icon: <Shield className="text-yellow-500" size={48} />,
-      title: "Quality Assurance",
-      description: "Rigorous quality control and inspection services ensuring all imported goods meet Thai standards and your specifications."
-    },
-    {
-      icon: <Clock className="text-yellow-500" size={48} />,
-      title: "Fast Delivery",
-      description: "Efficient supply chain management with predictable delivery timelines and real-time tracking for all shipments."
-    },
-    {
-      icon: <DollarSign className="text-yellow-500" size={48} />,
-      title: "Bulk Pricing",
-      description: "Competitive wholesale pricing with volume discounts for distributors and retailers. Maximize your profit margins with our bulk rates."
-    },
-    {
-      icon: <FileText className="text-yellow-500" size={48} />,
-      title: "Documentation",
-      description: "Complete handling of all import documentation, permits, and regulatory compliance for hassle-free international trade."
-    },
-    {
-      icon: <HeadphonesIcon className="text-yellow-500" size={48} />,
-      title: "24/7 Support",
-      description: "Dedicated account management and round-the-clock customer support to ensure smooth operations and quick issue resolution."
-    }
+    { icon: <Truck className="text-yellow-500" size={48} />, ...items[0] },
+    { icon: <Shield className="text-yellow-500" size={48} />, ...items[1] },
+    { icon: <Clock className="text-yellow-500" size={48} />, ...items[2] },
+    { icon: <DollarSign className="text-yellow-500" size={48} />, ...items[3] },
+    { icon: <FileText className="text-yellow-500" size={48} />, ...items[4] },
+    { icon: <HeadphonesIcon className="text-yellow-500" size={48} />, ...items[5] },
   ];
 
   return (
@@ -40,11 +18,10 @@ const Services = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
-            Comprehensive Trade Solutions
+            {t('services.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            From sourcing in China to distribution in Thailand, we provide end-to-end import services 
-            tailored for distributors and retailers seeking reliable bulk purchasing solutions.
+            {t('services.subtitle')}
           </p>
         </div>
 

@@ -1,42 +1,44 @@
-import React from 'react';
 import { Smartphone, Shirt, Home, Wrench, Baby, Gamepad2 } from 'lucide-react';
+import { useI18n } from '../i18n/index';
 
 const Products = () => {
+  const { t, get } = useI18n();
+  const categories = get('products.categories') as Array<{ title: string; description: string }>;
   const productCategories = [
     {
-      icon: <Smartphone className="text-blue-600" size={48} />,
-      title: "Electronics",
-      description: "Mobile devices, computers, accessories, and consumer electronics",
+      icon: <Smartphone className="text-blue-600 rounded-md bg-gray-200/70 p-1" size={36} />,
+      title: categories[0]?.title,
+      description: categories[0]?.description,
       image: "https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
-      icon: <Shirt className="text-blue-600" size={48} />,
-      title: "Fashion & Apparel",
-      description: "Clothing, shoes, bags, and fashion accessories for all demographics",
+      icon: <Shirt className="text-blue-600 rounded-md bg-gray-200/70 p-1" size={36} />,
+      title: categories[1]?.title,
+      description: categories[1]?.description,
       image: "https://images.pexels.com/photos/322207/pexels-photo-322207.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
-      icon: <Home className="text-blue-600" size={48} />,
-      title: "Home & Living",
-      description: "Furniture, kitchenware, home decor, and household essentials",
+      icon: <Home className="text-blue-600 rounded-md bg-gray-200/70 p-1" size={36} />,
+      title: categories[2]?.title,
+      description: categories[2]?.description,
       image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
-      icon: <Wrench className="text-blue-600" size={48} />,
-      title: "Tools & Hardware",
-      description: "Industrial tools, construction materials, and hardware supplies",
+      icon: <Wrench className="text-blue-600 rounded-md bg-gray-200/70 p-1" size={36} />,
+      title: categories[3]?.title,
+      description: categories[3]?.description,
       image: "https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
-      icon: <Baby className="text-blue-600" size={48} />,
-      title: "Mother & Baby",
-      description: "Baby products, toys, maternity items, and child care essentials",
+      icon: <Baby className="text-blue-600 rounded-md bg-gray-200/70 p-1" size={36} />,
+      title: categories[4]?.title,
+      description: categories[4]?.description,
       image: "https://images.pexels.com/photos/1166473/pexels-photo-1166473.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
-      icon: <Gamepad2 className="text-blue-600" size={48} />,
-      title: "Sports & Recreation",
-      description: "Sporting goods, fitness equipment, and recreational products",
+      icon: <Gamepad2 className="text-blue-600 rounded-md bg-gray-200/70 p-1" size={36} />,
+      title: categories[5]?.title,
+      description: categories[5]?.description,
       image: "https://images.pexels.com/photos/863977/pexels-photo-863977.jpeg?auto=compress&cs=tinysrgb&w=600"
     }
   ];
@@ -46,11 +48,10 @@ const Products = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
-            Product Categories
+            {t('products.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            We import a diverse range of high-quality products from trusted Chinese manufacturers, 
-            offering competitive wholesale pricing for Thai distributors and retailers.
+            {t('products.subtitle')}
           </p>
         </div>
 
@@ -72,7 +73,7 @@ const Products = () => {
                 <h3 className="text-xl font-bold text-gray-800 mb-3">{category.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{category.description}</p>
                 <button className="mt-4 text-blue-600 font-semibold hover:text-blue-800 transition-colors flex items-center space-x-2">
-                  <span>Learn More</span>
+                  <span>{t('common.learnMore')}</span>
                   <svg className="w-4 h-4 transition-transform group-hover:translate-x-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
@@ -84,7 +85,7 @@ const Products = () => {
 
         <div className="text-center mt-16">
           <button className="bg-blue-600 text-white px-12 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-all transform hover:scale-105">
-            View Full Product Catalog
+            {t('common.viewCatalog')}
           </button>
         </div>
       </div>

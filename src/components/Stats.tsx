@@ -1,32 +1,14 @@
-import React from 'react';
 import { Package, Users, Globe, Award } from 'lucide-react';
+import { useI18n } from '../i18n/index';
 
 const Stats = () => {
+  const { get } = useI18n();
+  const items = get('stats.items') as Array<{ number: string; label: string; description: string }>;
   const stats = [
-    {
-      icon: <Package className="text-blue-600" size={40} />,
-      number: "50,000+",
-      label: "Products Imported",
-      description: "Wide variety of goods"
-    },
-    {
-      icon: <Users className="text-blue-600" size={40} />,
-      number: "200+",
-      label: "Active Partners",
-      description: "Distributors & Retailers"
-    },
-    {
-      icon: <Globe className="text-blue-600" size={40} />,
-      number: "15+",
-      label: "Years Experience",
-      description: "In international trade"
-    },
-    {
-      icon: <Award className="text-blue-600" size={40} />,
-      number: "98%",
-      label: "Client Satisfaction",
-      description: "Proven track record"
-    }
+    { icon: <Package className="text-blue-600" size={40} />, ...items[0] },
+    { icon: <Users className="text-blue-600" size={40} />, ...items[1] },
+    { icon: <Globe className="text-blue-600" size={40} />, ...items[2] },
+    { icon: <Award className="text-blue-600" size={40} />, ...items[3] },
   ];
 
   return (

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
+import { useI18n } from '../i18n/index';
 
 const Contact = () => {
+  const { t, get } = useI18n();
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -16,7 +18,7 @@ const Contact = () => {
     e.preventDefault();
     // Handle form submission
     console.log('Form submitted:', formData);
-    alert('Thank you for your inquiry! We will contact you within 24 hours.');
+    alert(t('contact.form.success'));
     setFormData({
       name: '',
       company: '',
@@ -38,23 +40,23 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <MapPin className="text-blue-600" size={24} />,
-      title: "Head Office",
-      content: "123 Silom Road, Bang Rak District\nBangkok 10500, Thailand"
+      title: t('contact.info.office'),
+      content: (get('contact.info.addressLines') as string[]).join('\n')
     },
     {
       icon: <Phone className="text-blue-600" size={24} />,
-      title: "Phone",
-      content: "+66 2 123 4567\n+66 2 123 4568"
+      title: t('contact.info.phone'),
+      content: (get('contact.info.phoneLines') as string[]).join('\n')
     },
     {
       icon: <Mail className="text-blue-600" size={24} />,
-      title: "Email",
-      content: "info@intertrade.co.th\nsales@intertrade.co.th"
+      title: t('contact.info.email'),
+      content: (get('contact.info.emailLines') as string[]).join('\n')
     },
     {
       icon: <Clock className="text-blue-600" size={24} />,
-      title: "Business Hours",
-      content: "Monday - Friday: 8:00 AM - 6:00 PM\nSaturday: 9:00 AM - 1:00 PM"
+      title: t('contact.info.hours'),
+      content: (get('contact.info.hoursLines') as string[]).join('\n')
     }
   ];
 
@@ -63,11 +65,10 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Get In Touch
+            {t('contact.title')}
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Ready to start importing? Contact us for bulk pricing, product catalogs, 
-            and personalized trade solutions for your business needs.
+            {t('contact.subtitle')}
           </p>
         </div>
 
@@ -92,13 +93,13 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="bg-gray-800 p-8 rounded-2xl">
-            <h3 className="text-2xl font-bold mb-6">Request a Quote</h3>
+            <h3 className="text-2xl font-bold mb-6">{t('contact.form.requestTitle')}</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
                   type="text"
                   name="name"
-                  placeholder="Your Name*"
+                  placeholder={t('contact.form.name')}
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -107,7 +108,7 @@ const Contact = () => {
                 <input
                   type="text"
                   name="company"
-                  placeholder="Company Name*"
+                  placeholder={t('contact.form.company')}
                   value={formData.company}
                   onChange={handleChange}
                   required
@@ -119,7 +120,7 @@ const Contact = () => {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email Address*"
+                  placeholder={t('contact.form.email')}
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -128,7 +129,7 @@ const Contact = () => {
                 <input
                   type="tel"
                   name="phone"
-                  placeholder="Phone Number*"
+                  placeholder={t('contact.form.phone')}
                   value={formData.phone}
                   onChange={handleChange}
                   required
@@ -144,19 +145,15 @@ const Contact = () => {
                   required
                   className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all"
                 >
-                  <option value="">Select Product Category*</option>
-                  <option value="electronics">Electronics</option>
-                  <option value="fashion">Fashion & Apparel</option>
-                  <option value="home">Home & Living</option>
-                  <option value="tools">Tools & Hardware</option>
-                  <option value="baby">Mother & Baby</option>
-                  <option value="sports">Sports & Recreation</option>
-                  <option value="other">Other</option>
+                  <option value="">{t('contact.form.categoryPlaceholder')}</option>
+                  {(get('contact.form.categories') as string[]).map((c) => (
+                    <option key={c} value={c.toLowerCase()}>{c}</option>
+                  ))}
                 </select>
                 <input
                   type="text"
                   name="quantity"
-                  placeholder="Expected Quantity*"
+                  placeholder={t('contact.form.quantity')}
                   value={formData.quantity}
                   onChange={handleChange}
                   required
@@ -166,7 +163,7 @@ const Contact = () => {
 
               <textarea
                 name="message"
-                placeholder="Tell us about your requirements..."
+                placeholder={t('contact.form.message')}
                 value={formData.message}
                 onChange={handleChange}
                 rows={4}
@@ -177,7 +174,7 @@ const Contact = () => {
                 type="submit"
                 className="w-full bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-all transform hover:scale-105 flex items-center justify-center space-x-2"
               >
-                <span>Send Inquiry</span>
+                <span>{t('contact.form.submit')}</span>
                 <Send size={20} />
               </button>
             </form>
