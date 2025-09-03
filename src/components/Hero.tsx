@@ -55,7 +55,7 @@ const Hero = () => {
               />
             </div>
             {/* Floating cards */}
-            <div className="absolute -top-6 -left-6 bg-white text-gray-800 px-4 py-3 rounded-lg shadow-xl">
+            <div className="z-99 absolute -top-6 -left-6 bg-white text-gray-800 px-4 py-3 rounded-lg shadow-xl">
               <div className="text-sm text-gray-600">Containers Shipped</div>
               <div className="text-2xl font-bold text-blue-600">2,500+</div>
             </div>
