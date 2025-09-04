@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 import { useI18n } from '../i18n/index';
 
@@ -13,21 +14,54 @@ const Contact = () => {
     quantity: '',
     message: ''
   });
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    alert(t('contact.form.success'));
-    setFormData({
-      name: '',
-      company: '',
-      email: '',
-      phone: '',
-      productCategory: '',
-      quantity: '',
-      message: ''
-    });
+    if (sending) return;
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string;
+    const toEmail = import.meta.env.VITE_CONTACT_TO_EMAIL as string;
+
+    if (!serviceId || !templateId || !publicKey || !toEmail) {
+      console.error('EmailJS env vars are missing. Please set VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY, VITE_CONTACT_TO_EMAIL.');
+      alert('Email service is not configured.');
+      return;
+    }
+
+    setSending(true);
+    try {
+      const params = {
+        to_email: toEmail,
+        from_name: formData.name,
+        from_email: formData.email,
+        company: formData.company,
+        phone: formData.phone,
+        product_category: formData.productCategory,
+        quantity: formData.quantity,
+        message: formData.message,
+      };
+
+      await emailjs.send(serviceId, templateId, params, { publicKey });
+
+      alert(t('contact.form.success'));
+      setFormData({
+        name: '',
+        company: '',
+        email: '',
+        phone: '',
+        productCategory: '',
+        quantity: '',
+        message: ''
+      });
+    } catch (err) {
+      console.error('Email send failed:', err);
+      alert('Failed to send. Please try again later.');
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -172,9 +206,10 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-all transform hover:scale-105 flex items-center justify-center space-x-2"
+                disabled={sending}
+                className="w-full bg-blue-600 disabled:bg-blue-400 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 disabled:hover:bg-blue-400 transition-all transform hover:scale-105 disabled:hover:scale-100 flex items-center justify-center space-x-2"
               >
-                <span>{t('contact.form.submit')}</span>
+                <span>{sending ? t('common.sending') ?? 'Sending…' : t('contact.form.submit')}</span>
                 <Send size={20} />
               </button>
             </form>

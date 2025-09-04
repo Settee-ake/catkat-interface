@@ -1,8 +1,20 @@
 import { ArrowRight, Ship, Globe, TrendingUp } from 'lucide-react';
 import { useTranslate } from '../i18n/index';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { scrollToId } from '../utils/scrollTo';
 
 const Hero = () => {
   const t = useTranslate();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const goToSection = (targetId: string) => {
+    if (location.pathname !== '/') {
+      navigate(`/#${targetId}`);
+      return;
+    }
+    scrollToId(targetId);
+  };
   return (
     <section id="home" className="relative bg-gradient-to-br from-green-900 via-white to-blue-900 text-white overflow-hidden">
       {/* Background image */}
@@ -67,11 +79,21 @@ const Hero = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8 lg:mb-10 justify-center lg:justify-start">
-                <button className="bg-yellow-500 text-blue-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-yellow-400 transition-all transform hover:scale-105 flex items-center justify-center space-x-2">
+                <button
+                  type="button"
+                  onClick={() => goToSection('contact')}
+                  className="bg-yellow-500 text-blue-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-yellow-400 transition-all transform hover:scale-105 flex items-center justify-center space-x-2"
+                  aria-label="Request a quote"
+                >
                   <span>{t('common.requestQuote')}</span>
                   <ArrowRight size={20} />
                 </button>
-                <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-900 transition-all">
+                <button
+                  type="button"
+                  onClick={() => goToSection('products')}
+                  className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-900 transition-all"
+                  aria-label="View products"
+                >
                   {t('common.viewProducts')}
                 </button>
               </div>
@@ -108,7 +130,7 @@ const Hero = () => {
             </div>
             <div className="absolute -bottom-6 -right-6 bg-yellow-400 text-gray-800 px-4 py-3 rounded-lg shadow-xl">
               <div className="text-sm text-gray-700">{t('hero.floating.clientsLabel')}</div>
-              <div className="text-2xl font-bold">150+</div>
+              <div className="text-2xl font-bold">1000+</div>
             </div>
           </div>
         </div>
