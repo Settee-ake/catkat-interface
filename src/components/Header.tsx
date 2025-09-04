@@ -23,18 +23,18 @@ const Header = () => {
       <div className="container mx-auto px-4">
         {/* Top bar */}
         <div className="flex justify-between items-center py-2 border-b border-gray-100">
-          <div className="flex items-center space-x-6 text-sm text-gray-600">
-            <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4 sm:space-x-6 sm:text-sm text-gray-600 text-xs">
+            <div className="flex items-center space-x-1">
               <Phone size={14} />
               <span>{t('header.phone')}</span>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1">
               <Mail size={14} />
               <span>{t('header.email')}</span>
             </div>
           </div>
-          <div className="flex items-center space-x-2 text-sm text-gray-600">
-            <Globe size={14} />
+          <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-gray-600">
+            {/* <Globe size={14} /> */}
             <button
               type="button"
               onClick={() => setLang('en')}
